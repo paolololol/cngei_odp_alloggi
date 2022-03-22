@@ -27,6 +27,7 @@ function App() {
         } else {
             setTessera('');
             setCognome('')
+            setNotFound(false);
             setResult(match);
         }
     }
