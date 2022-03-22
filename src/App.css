@@ -35,6 +35,12 @@ form {
   grid-template-columns: minmax(200px, 300px) minmax(200px, 300px) 100px;
 }
 
+@media only screen and (max-width: 500px) {
+  form {
+    grid-template-columns: unset;
+  }
+}
+
 input {
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -49,16 +55,20 @@ button {
   border-radius: 4px;
   border: none;
   color: white;
+  min-height: 28px;
 }
 
-table {
-  align-self: center;
-  border-collapse: collapse;
+.result-container {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.result-item {
+  padding: 4px;
   text-align: left;
 }
 
+.result-item > :first-child {
+  font-weight: bold;
+}
