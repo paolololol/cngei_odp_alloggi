@@ -105,10 +105,6 @@ function App() {
                             <div>{result[0].HOTEL}</div>
                         </div>
                         <div className={'result-item'}>
-                            <div>Stanza</div>
-                            <div>{result[0]["N stanza"]}</div>
-                        </div>
-                        <div className={'result-item'}>
                             <div>Indirizzo</div>
                             <div><a href={getAddress(result[0].HOTEL)?.to} rel={'noreferrer noopener'}>{getAddress(result[0].HOTEL)?.address}</a></div>
                         </div>
