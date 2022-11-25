@@ -1,12 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useKeycloak} from "@react-keycloak/web";
 
 const data = require('./anaz.json');
 
 function App() {
+    const { keycloak, initialized } = useKeycloak();
+
+    console.log(keycloak)
+
+    useEffect(() => {
+        if(keycloak && initialized && !keycloak.authenticated) {
+            console.log(keycloak)
+            keycloak.login();
+        } else {
+            console.log("authenticated")
+            console.log(keycloak)
+        }
+    }, [keycloak?.authenticated, initialized]);
+
     const [tessera, setTessera] = useState('');
-    const [sezione, setSezione] = useState('');
+    // const [sezione, setSezione] = useState('');
     const [result, setResult] = useState([]);
     const [notFound, setNotFound] = useState(false);
 
@@ -15,9 +30,11 @@ function App() {
         let match = null;
         if (tessera) {
             match = data.filter(x => x.tessera == tessera);
-        } else if (sezione) {
-            match = data.filter(x => x.sezione.toLowerCase().startsWith(sezione.toLowerCase()))
-        } else {
+        }
+        // else if (sezione) {
+        //     match = data.filter(x => x.sezione.toLowerCase().startsWith(sezione.toLowerCase()))
+        // }
+        else {
             return;
         }
 
@@ -26,10 +43,14 @@ function App() {
             setResult([]);
         } else {
             setTessera('');
-            setSezione('')
+            // setSezione('')
             setNotFound(false);
             setResult(match);
         }
+    }
+
+    if(!keycloak.authenticated) {
+        return <p></p>
     }
 
     return (
@@ -37,7 +58,7 @@ function App() {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo"/>
                 <p>
-                    Inserisci la tua tessera o la sezione e ti dir&ograve; dove dormire<br/>
+                    Inserisci la tua tessera e ti dir&ograve; dove dormire<br/>
                     ANaz Novembre 2022
                 </p>
             </header>
@@ -46,11 +67,6 @@ function App() {
                     placeholder={'Tessera'}
                     onChange={(e) => setTessera(e.target.value)}
                     value={tessera}
-                />
-                <input
-                    placeholder={'Sezione'}
-                    onChange={(e) => setSezione(e.target.value)}
-                    value={sezione}
                 />
                 <button type={'submit'}>Cerca</button>
             </form>
