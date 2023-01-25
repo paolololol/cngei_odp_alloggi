@@ -3,7 +3,7 @@ import './App.css';
 import {useEffect, useState} from "react";
 import {useKeycloak} from "@react-keycloak/web";
 
-const data = require('./anaz.json');
+const data = require('./data.json');
 
 function App() {
     const { keycloak, initialized } = useKeycloak();
@@ -59,7 +59,7 @@ function App() {
                 <img src={logo} className="App-logo" alt="logo"/>
                 <p>
                     Inserisci la tua tessera e ti dir&ograve; dove dormire<br/>
-                    ANaz Novembre 2022
+                    Evento adulti - Gennaio 2023
                 </p>
             </header>
             <form onSubmit={search}>
@@ -81,23 +81,19 @@ function App() {
                                     <th>Sezione</th>
                                     <th>Tessera</th>
                                     <th>Nome</th>
-                                    <th>Tipo stanza</th>
                                 </tr>
                                 <tr>
                                     <td>{x.sezione}</td>
                                     <td>{x.tessera}</td>
                                     <td>{x.nome}</td>
-                                    <td>{x.tipoStanza}</td>
                                 </tr>
                                 <tr>
+                                    <th>Tipo stanza</th>
                                     <th>Stanza</th>
-                                    <th>Piano</th>
-                                    <th>Corridoio</th>
                                 </tr>
                                 <tr>
+                                    <td>{x.tipoStanza}</td>
                                     <td>{x.stanza}</td>
-                                    <td>{x.piano}</td>
-                                    <td>{x.corridoio}</td>
                                 </tr>
                             </>
                         )
