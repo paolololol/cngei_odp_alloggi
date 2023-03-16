@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {useEffect, useState} from "react";
-import {useKeycloak} from "@react-keycloak/web";
+import { useEffect, useState } from "react";
+import { useKeycloak } from "@react-keycloak/web";
 
 const data = require('./data.json');
 
@@ -11,7 +11,7 @@ function App() {
     console.log(keycloak)
 
     useEffect(() => {
-        if(keycloak && initialized && !keycloak.authenticated) {
+        if (keycloak && initialized && !keycloak.authenticated) {
             console.log(keycloak)
             keycloak.login();
         } else {
@@ -49,17 +49,17 @@ function App() {
         }
     }
 
-    if(!keycloak.authenticated) {
+    if (!keycloak.authenticated) {
         return <p></p>
     }
 
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
+                <img src={logo} className="App-logo" alt="logo" />
                 <p>
-                    Inserisci la tua tessera e ti dir&ograve; dove dormire<br/>
-                    Evento adulti - Gennaio 2023
+                    Inserisci la tua tessera e ti dir&ograve; dove dormire<br />
+                    OdP Branca L
                 </p>
             </header>
             <form onSubmit={search}>
@@ -71,32 +71,32 @@ function App() {
                 <button type={'submit'}>Cerca</button>
             </form>
             {notFound &&
-                <p>Nessun risultato! Se hai cercato per sezione, prova a usare la tessera o viceversa, altrimenti
+                <p>Nessun risultato! Ricontrolla i tuoi dati, altrimenti
                     contatta la segreteria</p>}
             {result.length > 0 && (
                 <table>
                     {result.map(x => (
-                            <>
-                                <tr>
-                                    <th>Sezione</th>
-                                    <th>Tessera</th>
-                                    <th>Nome</th>
-                                </tr>
-                                <tr>
-                                    <td>{x.sezione}</td>
-                                    <td>{x.tessera}</td>
-                                    <td>{x.nome}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tipo stanza</th>
-                                    <th>Stanza</th>
-                                </tr>
-                                <tr>
-                                    <td>{x.tipoStanza}</td>
-                                    <td>{x.stanza}</td>
-                                </tr>
-                            </>
-                        )
+                        <>
+                            <tr>
+                                <th>Sezione</th>
+                                <th>Tessera</th>
+                                <th>Nome</th>
+                            </tr>
+                            <tr>
+                                <td>{x.sezione}</td>
+                                <td>{x.tessera}</td>
+                                <td>{x.nome}</td>
+                            </tr>
+                            <tr>
+                                <th>Alloggio</th>
+                                <th>Stanza</th>
+                            </tr>
+                            <tr>
+                                <td>{x.alloggio}</td>
+                                <td>{x.stanza}</td>
+                            </tr>
+                        </>
+                    )
                     )}
                 </table>
             )}
